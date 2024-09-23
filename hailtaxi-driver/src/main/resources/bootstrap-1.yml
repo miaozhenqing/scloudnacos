@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: hailtaxi-driver
+  cloud:
+    nacos:
+      discovery:
+        # nacos 服务注册地址
+        server-addr: 127.0.0.1:8848
+        weight: 1
+      config:
+        server-addr: 127.0.0.1:8848
