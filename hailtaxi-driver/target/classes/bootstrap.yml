@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: hailtaxi-driver
+  profiles:
+    active: 1
+  cloud:
+    nacos:
+      discovery:
+        # nacos 服务注册地址
+        server-addr: 127.0.0.1:8848
+        weight: 1
+        # 指定命名空间的id
+        namespace: 70631bbd-c5f1-4b40-abfb-b3fe08699fb0
+      config:
+        refresh-enabled: true
+        server-addr: 127.0.0.1:8848
+        # 指定命名空间的id
+        namespace: 70631bbd-c5f1-4b40-abfb-b3fe08699fb0
+        # 如果将配置信息保存到nacos，指定配置文件扩展名
+        file-extension: yaml
+        # nacos config dataid name 默认加载 ${spring.application.name}.${file-extension},当然也可指定
+        #name: hailtaxi-driver.yaml
+        # 加载共享配置信息
+        shared-configs[0]:
+          dataId: datasource.yaml
+          refresh: true
+        # 加载扩展配置
+        extension-configs:
+          - dataId: custom.yaml
+            refresh: true
