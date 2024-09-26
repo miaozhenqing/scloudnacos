@@ -29,7 +29,6 @@ import java.util.Set;
 
 @Configuration
 public class GatewayConfiguration {
-
     private final List<ViewResolver> viewResolvers;
     private final ServerCodecConfigurer serverCodecConfigurer;
 
@@ -146,7 +145,5 @@ public class GatewayConfiguration {
         );
         GatewayRuleManager.loadRules(rules);
     }
-
-
 }
 

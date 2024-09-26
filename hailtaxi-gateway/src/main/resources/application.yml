@@ -7,26 +7,6 @@ spring:
     allow-bean-definition-overriding: true
 
   cloud:
-    #    #Consul配置
-    #    consul:
-    #      host: 127.0.0.1
-    #      port: 8500
-    #      discovery:
-    #        #注册到Consul中的服务名字
-    #        service-name: ${spring.application.name}
-    #        #注册的服务的实例 Id，最好不要重复，这里参考官网建议的方式 带随机数 默认：应用名:port
-    #        #instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.i nstance_id:${random.value}}}
-    #        # 自定义实例id为:应用名:ip:port
-    #        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-    #        prefer-ip-address: true
-    #        # 开启服务注册
-    #        register: true
-    #        # 开启服务发现
-    #        enabled: true
-    #        #2 分钟之后健康检查未通过取消注册
-    #        health-check-critical-timeout: 2m
-    #        #consul 健康检查的轮询周期  源码查看debug的时候把时间设置长一点
-    #        health-check-interval: 7200s
     gateway:
       #路由配置
       routes:
@@ -39,14 +19,6 @@ spring:
             - Cookie=username,itheima
             - Header=token,^(?!\d+$)[\da-zA-Z]+$
             - Method=GET,POST
-            #- Token=Authorization
-          filters:
-            - PayMethod=alipay,业务整合
-            - name: RequestRateLimiter #请求数限流 名字不能随便写 ，使用默认的facatory
-              args:
-                key-resolver: "#{@ipKeyResolver}"
-                redis-rate-limiter.replenishRate: 1
-                redis-rate-limiter.burstCapacity: 1
         #唯一标识符
         - id: hailtaxi-order
           uri: lb://hailtaxi-order
@@ -59,6 +31,3 @@ spring:
           #路由断言
           predicates:
             - Path=/pay/**
-  redis:
-    host: 127.0.0.1
-    port: 6379
