@@ -28,3 +28,7 @@ spring:
         extension-configs:
           - dataId: custom.yaml
             refresh: true
+
+    sentinel:
+      log:
+        dir: ./logs/sentinel.log  # 当前项目目录下的 logs 文件夹

@@ -13,6 +13,10 @@
 
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <!--nacos-discovery-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -25,9 +29,17 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <version>${nacos.version}</version>
         </dependency>
+        <!--sentinel-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <version>${nacos.version}</version>
+        </dependency>
+        <!--热点参数限流-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-parameter-flow-control</artifactId>
+            <version>${csp.version}</version>
         </dependency>
     </dependencies>
 </project>

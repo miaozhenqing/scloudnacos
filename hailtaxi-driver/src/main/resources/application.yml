@@ -1,0 +1,8 @@
+version: v11
+server:
+  port: 8002
+spring:
+  #  application:
+  #    name: hailtaxi-driver
+  main:
+    allow-bean-definition-overriding: true

@@ -12,6 +12,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +24,8 @@ public class OrderApplication {
         SpringApplication.run(OrderApplication.class, args);
     }
 
-    @RestController
+    @RestController()
+    @RequestMapping("/order")
     public class NacosController {
 
         @Autowired
@@ -37,11 +40,18 @@ public class OrderApplication {
         public String echoAppName() {
             //使用 LoadBalanceClient 和 RestTemolate 结合的方式来访问
             ServiceInstance serviceInstance = loadBalancerClient.choose("hailtaxi-driver");
-            String url = String.format("http://%s:%s/echo/%s", serviceInstance.getHost(), serviceInstance.getPort(), appName);
+            String url = String.format("http://%s:%s/driver/echo/%s", serviceInstance.getHost(), serviceInstance.getPort(), appName);
             System.out.println("request url:" + url);
             return restTemplate.getForObject(url, String.class);
         }
 
+        @GetMapping(value = "/{string}")
+        public String driber(@PathVariable String string) {
+            return new StringBuilder()
+                    .append("<h1>order server</h1>").append("</br>")
+                    .append("message").append("：").append(string).append("</br>")
+                    .toString();
+        }
     }
 
     //实例化 RestTemplate 实例

@@ -6,5 +6,9 @@ spring:
       discovery:
         # nacos 服务注册地址
         server-addr: 127.0.0.1:8848
+        # 指定命名空间的id
+        namespace: 70631bbd-c5f1-4b40-abfb-b3fe08699fb0
       config:
         server-addr: 127.0.0.1:8848
+        # 指定命名空间的id
+        namespace: 70631bbd-c5f1-4b40-abfb-b3fe08699fb0
