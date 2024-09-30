@@ -23,8 +23,10 @@ public class DriverController {
     @Value("${spring.redis.port:0}")
     String springRedisPort;
 
-    @GetMapping(value = "/echo/{string}")
-    public String echo(@PathVariable String string) {
+    @Value("${spring.application.name}")
+    private String appName;
+    @GetMapping(value = "/echo")
+    public String echo(@RequestParam("msg") String string) {
         return new StringBuilder()
                 .append("version").append("：").append(version).append("</br>")
                 .append("port").append("：").append(serverPort).append("</br>")
@@ -34,10 +36,17 @@ public class DriverController {
                 .toString();
     }
 
-    @GetMapping(value = "/{string}")
-    public String driber(@PathVariable String string) {
+    @GetMapping(value = "/showserver")
+    public String driber(@RequestParam("msg") String string) {
+        if (string.equals("ex")) {
+            throw new RuntimeException("ex test");
+        }
         return new StringBuilder()
-                .append("<h1>driver server</h1>").append("</br>")
+                .append("<h1>")
+                .append(appName).append("</br>")
+                .append("version：").append(version).append("</br>")
+                .append("port：").append(serverPort).append("</br>")
+                .append("</h1>")
                 .append("message").append("：").append(string).append("</br>")
                 .toString();
     }
@@ -47,8 +56,8 @@ public class DriverController {
      * 司机信息
      */
     @SentinelResource(value = "info", blockHandler = "blockExHandler", fallback = "exHandler")
-    @GetMapping(value = "/info/{id}")
-    public Driver info(@PathVariable(value = "id") int id) throws BlockException {
+    @GetMapping(value = "/info")
+    public Driver info(@RequestParam(value = "id") int id) throws BlockException {
         Driver driver = driverMap.get(id);
         if (driver == null) {
 //                throw new SystemBlockException("司机id=" + id + "不存在", null);
@@ -88,8 +97,8 @@ public class DriverController {
      * 搜索指定城市的司机
      */
     @SentinelResource(value = "search")
-    @GetMapping(value = "/search/{city}")
-    public Driver search(@PathVariable(value = "city") String city) {
+    @GetMapping(value = "/search")
+    public Driver search(@RequestParam(value = "city") String city) {
         //假设查询到了一个司机信息
         Driver driver = driverMap.get(1);
         driver.setMsg(city);
@@ -99,8 +108,8 @@ public class DriverController {
     /****
      * 更新司机信息
      */
-    @PutMapping(value = "/status/{id}/{status}")
-    public Driver status(@PathVariable(value = "id") String id, @PathVariable(value = "status") Integer status) throws Exception {
+    @PutMapping(value = "/status")
+    public Driver status(@RequestParam(value = "id") String id, @RequestParam(value = "status") Integer status) throws Exception {
         //修改状态
         Driver driver = driverMap.get(id);
         if (driver == null) {

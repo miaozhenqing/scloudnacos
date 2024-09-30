@@ -1,3 +1,4 @@
+version: v11
 server:
   port: 18002
 spring:

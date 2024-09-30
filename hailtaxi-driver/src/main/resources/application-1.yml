@@ -1,5 +1,6 @@
+version: v11
 server:
-  port: 18002
+  port: 8002
 spring:
   #  application:
   #    name: hailtaxi-driver
