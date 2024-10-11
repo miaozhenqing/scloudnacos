@@ -52,5 +52,11 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>2.2.5.RELEASE</version><!--这里指定一些，防止版本不搭导致各种问题  -->
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

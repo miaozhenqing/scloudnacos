@@ -8,6 +8,16 @@ spring:
   cloud:
     loadbalancer:
       enabled: true
+    stream:
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          autoCreateTopics: true
+          replication-factor: 1
+      bindings:
+        myOutput:
+          destination: test_topic
+          content-type: application/json
 feign:
   sentinel:
     enabled: true

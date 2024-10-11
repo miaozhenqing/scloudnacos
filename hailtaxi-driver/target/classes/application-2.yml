@@ -6,3 +6,14 @@ spring:
   #    name: hailtaxi-driver
   main:
     allow-bean-definition-overriding: true
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          autoCreateTopics: false
+          replication-factor: 1
+      bindings:
+        myInput:
+          destination: test_topic
+          contentType: application/json
