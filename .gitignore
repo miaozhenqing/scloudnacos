@@ -23,3 +23,8 @@
 hs_err_pid*
 replay_pid*
 /.idea/
+/hailtaxi-driver/target/
+/hailtaxi-driver/target/
+/hailtaxi-order/target/
+/hailtaxi-gateway/target/
+/hailtaxi-common/target/

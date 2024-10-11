@@ -2,7 +2,9 @@ package com.zq.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.zq.config.ServerConfig;
 import com.zq.dto.Driver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
@@ -14,24 +16,15 @@ import static com.zq.service.DriverService.driverMap;
 @RefreshScope
 @SentinelResource(defaultFallback = "defaultExHandler")
 public class DriverController {
-    @Value("${server.port:0}")
-    String serverPort;
-    @Value("${version:default-version}")
-    String version;
-    @Value("${spring.redis.host:0.0.0.0}")
-    String springRedisHost;
-    @Value("${spring.redis.port:0}")
-    String springRedisPort;
-
-    @Value("${spring.application.name}")
-    private String appName;
+    @Autowired
+    private ServerConfig serverConfig;
     @GetMapping(value = "/echo")
     public String echo(@RequestParam("msg") String string) {
         return new StringBuilder()
-                .append("version").append("：").append(version).append("</br>")
-                .append("port").append("：").append(serverPort).append("</br>")
-                .append("springRedisHost").append("：").append(springRedisHost).append("</br>")
-                .append("springRedisPort").append("：").append(springRedisPort).append("</br>")
+                .append("version").append("：").append(serverConfig.version).append("</br>")
+                .append("port").append("：").append(serverConfig.serverPort).append("</br>")
+                .append("springRedisHost").append("：").append(serverConfig.springRedisHost).append("</br>")
+                .append("springRedisPort").append("：").append(serverConfig.springRedisPort).append("</br>")
                 .append("message").append("：").append(string).append("</br>")
                 .toString();
     }
@@ -43,9 +36,9 @@ public class DriverController {
         }
         return new StringBuilder()
                 .append("<h1>")
-                .append(appName).append("</br>")
-                .append("version：").append(version).append("</br>")
-                .append("port：").append(serverPort).append("</br>")
+                .append(serverConfig.appName).append("</br>")
+                .append("version：").append(serverConfig.version).append("</br>")
+                .append("port：").append(serverConfig.serverPort).append("</br>")
                 .append("</h1>")
                 .append("message").append("：").append(string).append("</br>")
                 .toString();
